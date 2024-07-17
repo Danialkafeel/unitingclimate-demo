@@ -1,18 +1,49 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-  /* change to ul, li */
-  const ul = document.createElement('ul');
-  [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
+  const cards = block.querySelectorAll('.cards > div');
+  cards.forEach((card) => {
+    card.style.border = 'none';
+    card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    card.style.padding = '16px';
+    card.style.marginBottom = '16px';
+    card.style.backgroundColor = 'var(--background-color)';
+    card.style.display = 'flex';
+    card.style.flexDirection = 'column';
+    card.style.alignItems = 'center';
+
+    const heading = card.querySelector('h4');
+    heading.style.marginBottom = '8px';
+    heading.style.fontWeight = 'bold';
+
+    const paragraphs = card.querySelectorAll('p');
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.marginBottom = '8px';
     });
-    ul.append(li);
+
+    const link = card.querySelector('a');
+    link.classList.add('button');
+    if (link.href.includes('facebook')) {
+      link.style.backgroundColor = '#1877f2';
+    } else if (link.href.includes('instagram')) {
+      link.style.backgroundColor = '#e1306c';
+    } else if (link.href.includes('eepurl')) {
+      link.style.backgroundColor = '#00a99d';
+    }
   });
-  ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  block.textContent = '';
-  block.append(ul);
+
+  block.style.display = 'grid';
+  block.style.gridTemplateColumns = '1fr';
+  block.style.gap = '16px';
+
+  const mediaQuery = window.matchMedia('(min-width: 900px)');
+  function handleTabletChange(e) {
+    if (e.matches) {
+      block.style.gridTemplateColumns = 'repeat(3, 1fr)';
+    } else {
+      block.style.gridTemplateColumns = '1fr';
+    }
+  }
+
+  mediaQuery.addListener(handleTabletChange);
+  handleTabletChange(mediaQuery);
 }

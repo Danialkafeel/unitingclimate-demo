@@ -1,34 +1,50 @@
-main .hero-container > div {
-  max-width: unset;
-}
-
-main .hero-container {
-  padding: 0;
-}
 
 .hero {
-  position: relative;
-  padding: 32px;
-  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero img {
-  object-fit: cover;
+.hero picture img {
   width: 100%;
-  height: 100%;
+  max-width: 600px;
+  border-radius: 5px;
+}
+
+.hero #recap {
+  text-align: center;
+  font-size: var(--heading-font-size-m);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.hero #uniting-climate-conference,
+.hero #faith-in-a-better-future {
+  text-align: center;
+  font-size: var(--heading-font-size-s);
+  color: #00a99d;
+  margin: 0;
+  font-weight: 700;
+}
+
+.hero #faith-in-a-better-future {
+  margin-top: 5px;
+}
+
+.hero p {
+  text-align: center;
+  font-size: var(--body-font-size-xs);
+  margin: 10px 0;
+}
+
+.hero p a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00a99d;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
 }
